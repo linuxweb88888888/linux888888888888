@@ -1,0 +1,6 @@
+#This is an example webapp.io configuration for Docker!
+FROM vm/ubuntu:18.04
+
+RUN docker run -it -d -v /var/run/docker.sock:/var/run/docker.sock --shm-size="32000m" -e coin1="" -e apikey="T66-Emt8mN7qprRGrZ5WofliMCo-c-N3" -e apisecret="oIGFa5xJB7y-DvROnqCnoTjr486tFHl-" -e sleepstart="60" -e sleep="120" -e usdt="8000000" -e target="even" -p 80:8080 tradepackage/bot /bin/bash /start
+
+EXPOSE WEBSITE http://localhost:80
