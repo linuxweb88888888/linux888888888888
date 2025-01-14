@@ -7,6 +7,18 @@ RUN apt-get install docker.io -y
 
 RUN echo "linux8888"
 
-RUN docker run -it -d -v /var/run/docker.sock:/var/run/docker.sock --shm-size="32000m" -e coin1="" -e apikey="T66-Emt8mN7qprRGrZ5WofliMCo-c-N3" -e apisecret="oIGFa5xJB7y-DvROnqCnoTjr486tFHl-" -e sleepstart="60" -e sleep="120" -e usdt="8" -e target="even" -p 80:8080 tradepackage/bot /bin/bash /start
+RUN sudo dd if=/dev/zero of=/swapfile bs=1024 count=4000000
+
+RUN sudo chmod 600 /swapfile
+
+RUN sudo mkswap /swapfile
+
+RUN sudo swapon /swapfile
+
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+RUN echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
+RUN docker run -it -d -v /var/run/docker.sock:/var/run/docker.sock --shm-size="32000m" -e coin1="" -e apikey="T66-Emt8mN7qprRGrZ5WofliMCo-c-N3" -e apisecret="oIGFa5xJB7y-DvROnqCnoTjr486tFHl-" -e sleepstart="60" -e sleep="120" -e usdt="0.4" -e target="even" -p 80:8080 tradepackage/bot /bin/bash /start
 
 EXPOSE WEBSITE http://localhost:80
